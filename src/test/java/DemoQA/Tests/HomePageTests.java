@@ -1,10 +1,9 @@
 package DemoQA.Tests;
 
-import DemoQA.BaseTest.DemoQABaseTest;
+import DemoQA.BaseTest.BaseTest;
 import DemoQA.Pages.HomePage;
 
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -14,7 +13,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class HomePageTests extends DemoQABaseTest {
+public class HomePageTests extends BaseTest {
 
     @BeforeMethod
     public void pageSetUp() {
@@ -93,13 +92,59 @@ public class HomePageTests extends DemoQABaseTest {
     }
 
     @Test
-    public void ElementsElementWorksProperly() {
+    public void ElementsButtonTakesUserToCorrectWebPage() {
 
-       if (homePage.getElements().isDisplayed()) {
-           new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(homePage.getElements()));
 
-           homePage.getElements().click();
-       }
+        String element="Elements";
+
+        scrollIntoView(homePage.getElements());
+
+        homePage.getElements().click();
+
+
+        Assert.assertEquals(driver.getCurrentUrl(), "https://demoqa.com/elements");
+
+
+    }
+
+
+    @Test
+    public void FormsButtonTakesUserToCorrectWebPage(){
+
+        scrollIntoView(homePage.getForms());
+        homePage.clickOnForms();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://demoqa.com/forms");
+    }
+
+    @Test
+    public void AlertsButtonTakesUserToCorrectWebPage(){
+
+        scrollIntoView(homePage.getAlerts());
+        homePage.clickOnAlerts();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://demoqa.com/alertsWindows");
+
+    }
+
+    @Test
+    public void WidgetsButtonTakesUserToCorrectWebPage(){
+
+        scrollIntoView(homePage.getWidgets());
+        homePage.clickOnWidgets();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://demoqa.com/widgets");
+    }
+
+    @Test
+    public void InteractionsButtonTakesUserToCorrectWebPage(){
+        scrollIntoView(homePage.getInteractions());
+        homePage.clickOnInteractions();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://demoqa.com/interaction");
+    }
+
+    @Test
+    public void BookStoreButtonTakesUserToCorrectWebPage(){
+        scrollIntoView(homePage.getBookStore());
+        homePage.clickOnBookStore();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://demoqa.com/books");
 
     }
 }

@@ -3,9 +3,14 @@ package DemoQA.Pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class ElementsPage {
-    public WebDriver driver;
+
 
     WebElement TextBox;
     WebElement CheckBox;
@@ -17,48 +22,66 @@ public class ElementsPage {
     WebElement UploadAndDownload;
     WebElement DynamicProperties;
 
-    public WebElement getTextBox() {
+    public WebDriver driver;
+    public WebDriverWait wdwait;
+
+    public ElementsPage(WebDriver driver, WebDriverWait wdwait) {
 
 
-        return driver.findElement(By.cssSelector("#item-0"));
+        this.driver = driver;
+        this.wdwait = wdwait;
+        PageFactory.initElements(driver,this);
     }
 
-    public WebElement getCheckBox() {
 
-        return driver.findElement(By.cssSelector("#item-1"));
+
+
+    @FindBy (className = "text")
+    public List<WebElement> elementsCards;
+
+    public WebElement getElementsCard(String elementsCardName) {
+        for (int i = 0; i < elementsCards.size(); i++) {
+            if (elementsCards.get(i).getText().equals(elementsCardName)) {
+                return elementsCards.get(i);
+            }
+        }
+        return null;
     }
 
-    public WebElement getRadioButton() {
-
-        return driver.findElement(By.cssSelector("#item-2"));
+     public WebElement getTextBox() {
+        return getElementsCard("Text Box");
+    }
+     public WebElement getCheckBox() {
+        return getElementsCard("Check Box");
+    }
+     public WebElement getRadioButton() {
+        return getElementsCard("Radio Button");
+    }
+     public WebElement getWebTables() {
+        return getElementsCard("Web Tables");
+    }
+     public WebElement getButtons() {
+        return getElementsCard("Buttons");
+    }
+     public WebElement getLinks() {
+        return getElementsCard("Links");
+    }
+     public WebElement getBrokenLinks() {
+        return getElementsCard("Broken Links - Images");
+    }
+     public WebElement getUploadAndDownload() {
+        return getElementsCard("Upload and Download");
+    }
+     public WebElement getDynamicProperties() {return getElementsCard("Dynamic Properties");
     }
 
-    public WebElement getWebTables() {
 
-        return driver.findElement(By.cssSelector("#item-3"));
-    }
 
-    public WebElement getButtons() {
+ }
 
-        return driver.findElement(By.cssSelector("#item-4"));
-    }
 
-    public WebElement getLinks() {
 
-        return driver.findElement(By.cssSelector("#item-5"));
-    }
 
-    public WebElement getBrokenLinks() {
 
-        return driver.findElement(By.cssSelector("#item-6"));
-    }
 
-    public WebElement getUploadAndDownload() {
-        return driver.findElement(By.cssSelector("#item-7"));
-    }
 
-    public WebElement getDynamicProperties() {
-
-        return driver.findElement(By.cssSelector("#item-8"));
-    }
-}
